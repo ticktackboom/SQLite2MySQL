@@ -1,13 +1,17 @@
 package gui;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
+import transform.SqliteConvert;
 
 public class Controller implements Initializable {
 	
@@ -16,6 +20,7 @@ public class Controller implements Initializable {
 	 */
 	
 	private File fileChoosed;
+	private boolean hasChanged;
 	
 	/*
 	 * Window IDs.
@@ -24,13 +29,16 @@ public class Controller implements Initializable {
 	@FXML
 	private TextField fileSelected;
 	
+	@FXML
+	private TextArea outputText;
+	
 	/**
 	 * 
 	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		// TODO Auto-generated method stub
-		
+		fileChoosed = null;
+		hasChanged = false;
 	}
 	
 	/*
@@ -45,6 +53,22 @@ public class Controller implements Initializable {
 		if (fileChoosed != null) {
 			fileSelected.setText(fileChoosed.toString());
 		}
+	}
+	
+	@FXML
+	public void convertStart() {
+		hasChanged = false;
+		try {
+			SqliteConvert conversion = new SqliteConvert(fileChoosed);
+			outputText.setText(conversion.getMysqlSyntax());
+		} catch (FileNotFoundException | SQLException e) {
+			outputText.setText(e.getMessage());
+		}
+	}
+	
+	@FXML
+	public void changed() {
+		hasChanged = true;
 	}
 
 }
