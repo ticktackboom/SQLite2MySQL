@@ -11,7 +11,8 @@ public class TestSqlite {
 		System.out.println("Pruebas");
 		
 		try {
-			SqliteConvert x = new SqliteConvert(new File("pruebadb.sqlite"));
+			SqliteConvert x = new SqliteConvert(new File("base_datos2015.sqlite"));
+			System.out.println("Abierto");
 			System.out.println(x.getMysqlSyntax());
 		} catch (FileNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block

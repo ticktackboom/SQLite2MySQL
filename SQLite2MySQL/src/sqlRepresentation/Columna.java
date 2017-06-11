@@ -9,9 +9,8 @@ public class Columna {
 	private boolean au;
 	private boolean uniq;
 
-	public Columna(String n, String t) {
+	public Columna(String n) {
 		nombre = n;
-		tipo = t;
 	}
 
 	@Override
